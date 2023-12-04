@@ -6,7 +6,7 @@ import CourseValue from "./components/CourseValue";
 
 function App() {
   return (
-    <div>
+    <div className="container is-fluid">
       <CourseForm />
       <CourseSearch />
       <CourseList />
