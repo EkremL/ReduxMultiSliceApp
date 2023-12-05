@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { addCourse } from "./courseSlice";
 
 const formSlice = createSlice({
   name: "form",
@@ -18,6 +19,15 @@ const formSlice = createSlice({
       state.cost = action.payload;
       // console.log(state.cost);
     },
+  },
+  //submit olduğunda resetlemek için extra reducers açmak gerek
+  extraReducers(builder) {
+    //addCourse tetiklendikten sonra stateyi güncelliyoruz
+    builder.addCase(addCourse, (state, action) => {
+      state.name = "";
+      state.description = "";
+      state.cost = 0;
+    });
   },
 });
 export const { changeName, changeDescription, changeCost } = formSlice.actions;

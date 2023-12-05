@@ -6,6 +6,7 @@ import {
   changeDescription,
   changeCost,
 } from "../store/slices/formSlice";
+import { addCourse } from "../store/slices/courseSlice";
 
 function CourseForm() {
   const dispatch = useDispatch();
@@ -18,10 +19,17 @@ function CourseForm() {
     };
   });
   // console.log(name, description, cost);
+
+  const handleSubmit = (e) => {
+    //form submit olduğunda değerleri courseslice içindeki data arrayına gönderiyoruz
+    e.preventDefault();
+    dispatch(addCourse({ name, description, cost }));
+  };
+
   return (
     <div className="courseForm panel">
       <h4 className="subtitle is-3">Kurs Ekle</h4>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="field-group">
           <div className="field">
             <label className="label">Ad</label>

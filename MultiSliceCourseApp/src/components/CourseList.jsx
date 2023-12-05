@@ -1,7 +1,50 @@
 import React from "react";
+//dataya ulasmak icin useselector
+import { useSelector, useDispatch } from "react-redux";
+import { removeCourse } from "../store/slices/courseSlice";
 
 function CourseList() {
-  return <div></div>;
+  const dispatch = useDispatch();
+
+  const courses = useSelector((state) => {
+    //datayı coursese atamis olduk
+    return state.courses.data;
+  });
+
+  const renderedCourses = courses.map((course) => {
+    return (
+      <div key={course.id} className="panel">
+        <h1>{course.name}</h1>
+        <h1>{course.description}</h1>
+        <h1>{course.cost}</h1>
+        <button
+          className="button is-danger"
+          onClick={() => dispatch(removeCourse(course.id))}
+        >
+          Sil
+        </button>
+      </div>
+      //bu normal yazim sekli fonksiyona da atayabiliriz ve alttaki gibi tek satırda yapabiliriz
+    );
+  });
+  return (
+    // <>
+    //   {courses.map((course) => {
+    //     return (
+    //       <div key={course.id} className="panel">
+    //         <h1>{course.name}</h1>
+    //         <h1>{course.description}</h1>
+    //         <h1>{course.cost}</h1>
+    //         <button className="button is-danger">Sil</button>
+    //       </div>
+    //     );
+    //   })}
+    // </>
+    //       //!bu normal yazim sekli fonksiyona da atayabiliriz ve alttaki gibi daha rahat da yapabiliriz
+    <>
+      <div className="courseList">{renderedCourses}</div>
+    </>
+  );
 }
 
 export default CourseList;
