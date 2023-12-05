@@ -6,9 +6,15 @@ import { removeCourse } from "../store/slices/courseSlice";
 function CourseList() {
   const dispatch = useDispatch();
 
-  const courses = useSelector((state) => {
-    //datayı coursese atamis olduk
-    return state.courses.data;
+  //search inputunda filtreleme işlemi
+  const { courses } = useSelector(({ form, courses: { data, searchTerm } }) => {
+    //destructoring yapiyoruz
+    const filteredCourses = data.filter((course) =>
+      course.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    return {
+      courses: filteredCourses,
+    };
   });
 
   const renderedCourses = courses.map((course) => {
@@ -16,7 +22,7 @@ function CourseList() {
       <div key={course.id} className="panel">
         <h1>{course.name}</h1>
         <h1>{course.description}</h1>
-        <h1>{course.cost}</h1>
+        <h1>{course.cost} TL</h1>
         <button
           className="button is-danger"
           onClick={() => dispatch(removeCourse(course.id))}

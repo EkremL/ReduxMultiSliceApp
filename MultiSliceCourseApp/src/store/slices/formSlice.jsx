@@ -23,7 +23,7 @@ const formSlice = createSlice({
   //submit olduğunda resetlemek için extra reducers açmak gerek
   extraReducers(builder) {
     //addCourse tetiklendikten sonra stateyi güncelliyoruz
-    builder.addCase(addCourse, (state, action) => {
+    builder.addCase(addCourse, (state) => {
       state.name = "";
       state.description = "";
       state.cost = 0;
